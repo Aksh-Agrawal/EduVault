@@ -1,0 +1,183 @@
+1. ShikshaWallet – Detailed Build Plan
+Core Concept
+A mobile-first learner identity wallet that:
+
+Stores & shares verifiable student credentials (ID, attendance, credits, certificates).
+
+Integrates daily campus utilities (attendance, library, payments).
+
+Uses SSI (Self-Sovereign Identity) & W3C Verifiable Credentials for trust.
+
+Powered by India Stack APIs (Aadhaar, DigiLocker, Academic Bank of Credit).
+
+Runs on permissioned blockchain (Hyperledger Fabric).
+
+A. System Architecture (Simplified for MVP)
+pgsql
+Copy
+Edit
+[ Mobile App (React Native / WebView) ]
+      |         |         |
+   REST API   QR/NFC   UPI Payment
+      |
+[ Node.js / Express Backend on Replit ]
+      |
+  --------------------------
+  |   Blockchain Layer     |
+  |   (Simulated in MVP    |
+  |   with local DB)       |
+  --------------------------
+      |
+[ External APIs / Integrations ]
+  - DigiLocker API (documents)
+  - ABC API (academic credits)
+  - Aadhaar e-KYC API
+  - College ERP API (attendance, fees)
+Why simulate blockchain first?
+Hyperledger Fabric is heavy and not supported directly on Replit. For MVP, we simulate credential signing & verification using a database + JWT signatures, then later swap in Fabric.
+
+B. Core Modules for MVP
+User Authentication & Identity
+
+Sign-up/login with mobile + OTP (Twilio/Firebase Auth).
+
+Aadhaar e-KYC integration (mock in MVP).
+
+Profile stores name, student ID, institution, course.
+
+Credential Issuance
+
+College admin issues a credential (e.g., attendance proof, student ID).
+
+Credential stored in backend DB, signed with private key.
+
+Format: W3C Verifiable Credential JSON.
+
+Credential Verification
+
+Employer/Verifier scans a QR code → hits API → verifies signature & data integrity.
+
+Daily Utilities
+
+Attendance: QR/NFC scan updates student attendance credential.
+
+Payments: Integrate UPI Deep Links (upi://pay?...) for fees.
+
+Library: NFC/QR to check in/out books (just log transactions in DB).
+
+Opportunity Hub
+
+Simple job/internship listing from admin panel.
+
+One-click apply sends verified credentials to employer email/API.
+
+C. Data Flow Example (Attendance Verification)
+Student scans QR at classroom door.
+
+App sends POST /attendance with student ID & session ID.
+
+Backend verifies identity → issues a signed VC (attendance proof).
+
+Credential stored in student wallet in app.
+
+Employer or college official can scan QR from student wallet to verify attendance instantly.
+
+D. Tech Stack for Replit MVP
+Frontend:
+
+React + Vite (Replit supports React apps)
+
+Or React Native (but RN on Replit only works as API + Expo externally)
+
+QR code scanning (via react-qr-reader)
+
+QR code generation (qrcode.react)
+
+Backend:
+
+Node.js + Express (Replit-friendly)
+
+Database: SQLite (via better-sqlite3) or MongoDB Atlas (cloud)
+
+JWT for signing credentials
+
+REST API for mobile app
+
+External APIs (mock for MVP):
+
+DigiLocker API → use mock JSON data for now
+
+Aadhaar e-KYC → simulate verification
+
+ABC → mock response
+
+E. Development Plan for MVP (on Replit)
+Phase 1: Backend API
+
+Create /register & /login (JWT authentication).
+
+Create /issue-credential (admin only).
+
+Create /verify-credential (public).
+
+Store credentials in SQLite.
+
+Implement QR code generation for credentials.
+
+Phase 2: Frontend Web App
+
+Student dashboard:
+
+View profile
+
+View credentials list
+
+Scan QR for attendance
+
+Pay fees (UPI link)
+
+Employer dashboard:
+
+Scan & verify credentials.
+
+Phase 3: Integrations
+
+Add NFC/QR scanning for campus access.
+
+Add opportunity hub listing.
+
+F. Example: Verifiable Credential JSON (W3C Standard)
+json
+Copy
+Edit
+{
+  "@context": ["https://www.w3.org/2018/credentials/v1"],
+  "id": "urn:uuid:12345678-abcd-efgh-ijkl-9876543210",
+  "type": ["VerifiableCredential", "StudentID"],
+  "issuer": "https://college-erp.com",
+  "issuanceDate": "2025-08-12T14:30:00Z",
+  "credentialSubject": {
+    "id": "did:shiksha:student123",
+    "name": "Aksh Agrawal",
+    "institution": "CSVTU",
+    "course": "BTech CSE (Data Science)",
+    "year": 2
+  },
+  "proof": {
+    "type": "RsaSignature2018",
+    "created": "2025-08-12T14:30:00Z",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "https://college-erp.com/keys/1",
+    "jws": "eyJhbGciOiJSUzI1NiIsInR5cCI6..."
+  }
+}
+G. MVP Timeline
+Week 1: Backend API (Auth, Credential Issue/Verify)
+
+Week 2: Frontend dashboard + QR scan/generate
+
+Week 3: Attendance/payment modules
+
+Week 4: Mock DigiLocker/Aadhaar integration
+
+Week 5: Employer verification flow + deployment
