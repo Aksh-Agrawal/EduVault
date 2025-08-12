@@ -1,5 +1,6 @@
 import { type User, type InsertUser, type Credential, type InsertCredential, type AttendanceRecord, type InsertAttendanceRecord, type VerificationLog, type InsertVerificationLog } from "@shared/schema";
 import { randomUUID } from "crypto";
+import bcrypt from "bcrypt";
 
 export interface IStorage {
   // User methods
@@ -39,10 +40,11 @@ export class MemStorage implements IStorage {
   }
 
   private async createDefaultAdmin() {
+    const adminPasswordHash = await bcrypt.hash("admin123", 10);
     const adminUser: User = {
       id: randomUUID(),
       username: "admin",
-      password: "$2a$10$8K6MdR7K6K7K6K7K6K7K6uH0H0H0H0H0H0H0H0H0H0H0H0H0H0", // bcrypt hash of "admin123"
+      password: adminPasswordHash,
       name: "System Administrator",
       studentId: null,
       institution: "CSVTU",
@@ -56,10 +58,11 @@ export class MemStorage implements IStorage {
     this.users.set(adminUser.id, adminUser);
 
     // Create default student
+    const studentPasswordHash = await bcrypt.hash("student123", 10);
     const studentUser: User = {
       id: randomUUID(),
       username: "2024CSE001",
-      password: "$2a$10$8K6MdR7K6K7K6K7K6K7K6uH0H0H0H0H0H0H0H0H0H0H0H0H0H0", // bcrypt hash of "student123"
+      password: studentPasswordHash,
       name: "Aksh Agrawal",
       studentId: "2024CSE001",
       institution: "Chhattisgarh Swami Vivekanand Technical University",
@@ -71,6 +74,47 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.users.set(studentUser.id, studentUser);
+
+    // Create some demo credentials for the student
+    const studentCredential: Credential = {
+      id: randomUUID(),
+      studentId: studentUser.id,
+      type: "student_id",
+      data: {
+        name: studentUser.name,
+        studentId: studentUser.studentId,
+        course: studentUser.course,
+        year: studentUser.year,
+        institution: studentUser.institution,
+        validFrom: new Date().toISOString(),
+        issuer: "CSVTU"
+      },
+      signature: "demo_signature",
+      issuerId: adminUser.id,
+      issuedAt: new Date(),
+      expiresAt: null,
+      isActive: true,
+    };
+    this.credentials.set(studentCredential.id, studentCredential);
+
+    const attendanceCredential: Credential = {
+      id: randomUUID(),
+      studentId: studentUser.id,
+      type: "attendance",
+      data: {
+        subject: "Data Structures & Algorithms",
+        date: new Date().toISOString(),
+        status: "Present",
+        location: "Room 301",
+        session: "Morning"
+      },
+      signature: "demo_signature_2",
+      issuerId: adminUser.id,
+      issuedAt: new Date(),
+      expiresAt: null,
+      isActive: true,
+    };
+    this.credentials.set(attendanceCredential.id, attendanceCredential);
   }
 
   async getUser(id: string): Promise<User | undefined> {
