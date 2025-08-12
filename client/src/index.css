@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 98%);
+  --foreground: hsl(0, 0%, 16%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 16%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 16%);
+  --primary: hsl(210, 83%, 53%);
+  --primary-dark: hsl(211, 79%, 49%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(122, 39%, 49%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 96%);
+  --muted-foreground: hsl(0, 0%, 45%);
+  --accent: hsl(37, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(0, 0%, 88%);
+  --input: hsl(0, 0%, 96%);
+  --ring: hsl(210, 83%, 53%);
+  --neutral-50: hsl(0, 0%, 98%);
+  --neutral-100: hsl(0, 0%, 96%);
+  --neutral-200: hsl(0, 0%, 88%);
+  --neutral-500: hsl(0, 0%, 62%);
+  --neutral-800: hsl(0, 0%, 26%);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 4%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --popover: hsl(0, 0%, 4%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --primary: hsl(210, 83%, 53%);
+  --primary-dark: hsl(211, 79%, 49%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(122, 39%, 49%);
+  --secondary-foreground: hsl(0, 0%, 100%);
+  --muted: hsl(0, 0%, 6%);
+  --muted-foreground: hsl(0, 0%, 64%);
+  --accent: hsl(37, 100%, 50%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsl(0, 0%, 15%);
+  --input: hsl(0, 0%, 8%);
+  --ring: hsl(210, 83%, 53%);
+  --neutral-50: hsl(0, 0%, 6%);
+  --neutral-100: hsl(0, 0%, 10%);
+  --neutral-200: hsl(0, 0%, 15%);
+  --neutral-500: hsl(0, 0%, 62%);
+  --neutral-800: hsl(0, 0%, 95%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .primary {
+    background-color: var(--primary);
+  }
+  
+  .primary-dark {
+    background-color: var(--primary-dark);
+  }
+  
+  .secondary {
+    background-color: var(--secondary);
+  }
+  
+  .accent {
+    background-color: var(--accent);
+  }
+  
+  .neutral-50 {
+    background-color: var(--neutral-50);
+  }
+  
+  .neutral-100 {
+    background-color: var(--neutral-100);
+  }
+  
+  .neutral-200 {
+    background-color: var(--neutral-200);
+  }
+  
+  .neutral-500 {
+    color: var(--neutral-500);
+  }
+  
+  .neutral-800 {
+    color: var(--neutral-800);
+  }
+}
