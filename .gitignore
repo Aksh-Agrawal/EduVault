@@ -1,6 +1,36 @@
+# Node modules
 node_modules
+
+# Build output
 dist
+build/
+out/
+coverage/
+
+# OS files
 .DS_Store
-server/public
+Thumbs.db
+
+# Local folders
+.local/
+
+# Environment files
+.env
+.env.*
+
+# Vite config cache
 vite.config.ts.*
+
+# Tarballs
 *.tar.gz
+
+# Server public assets
+server/public
+
+# Logs
+*.log
+logs/
+
+# IDE/editor folders
+.vscode/
+.idea/
