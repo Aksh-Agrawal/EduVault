@@ -174,10 +174,14 @@ export default function Dashboard() {
       {/* Main Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-white rounded-lg p-1 shadow-sm">
+          <TabsList className="grid w-full grid-cols-5 bg-white rounded-lg p-1 shadow-sm">
             <TabsTrigger value="dashboard" className="flex items-center space-x-2">
               <i className="fas fa-home"></i>
               <span>Dashboard</span>
+            </TabsTrigger>
+            <TabsTrigger value="services" className="flex items-center space-x-2">
+              <i className="fas fa-th-large"></i>
+              <span>Services</span>
             </TabsTrigger>
             <TabsTrigger value="credentials" className="flex items-center space-x-2">
               <i className="fas fa-id-card"></i>
@@ -223,7 +227,7 @@ export default function Dashboard() {
 
             {/* Quick Actions */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => setActiveTab("scan")}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="h-10 w-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition-colors">
@@ -236,7 +240,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => window.open('/services', '_blank')}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="h-10 w-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition-colors">
@@ -249,7 +253,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => window.open('/services', '_blank')}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="h-10 w-10 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition-colors">
@@ -262,7 +266,7 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              <Card className="hover:shadow-md transition-shadow cursor-pointer group">
+              <Card className="hover:shadow-md transition-shadow cursor-pointer group" onClick={() => window.open('/services', '_blank')}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <div className="h-10 w-10 bg-orange-100 rounded-lg flex items-center justify-center group-hover:bg-orange-200 transition-colors">
@@ -319,6 +323,110 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="services" className="space-y-6">
+            <div className="space-y-6">
+              <div className="text-center space-y-2">
+                <h2 className="text-2xl font-bold text-neutral-800">Campus Services</h2>
+                <p className="text-neutral-600">Quick access to university services</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card 
+                  className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+                  onClick={() => setActiveTab("scan")}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center">
+                        <i className="fas fa-calendar-check text-blue-500 text-xl"></i>
+                      </div>
+                      <i className="fas fa-arrow-right text-neutral-400 group-hover:text-neutral-700 transition-colors"></i>
+                    </div>
+                    <div className="space-y-1 mt-3">
+                      <h3 className="text-lg font-semibold text-neutral-800">Mark Attendance</h3>
+                      <p className="text-sm text-neutral-500">Scan QR to check-in</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card 
+                  className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+                  onClick={() => {
+                    toast({
+                      title: "Coming Soon",
+                      description: "Fee payment feature will be available soon",
+                    });
+                  }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-green-50 flex items-center justify-center">
+                        <i className="fas fa-credit-card text-green-500 text-xl"></i>
+                      </div>
+                      <i className="fas fa-arrow-right text-neutral-400 group-hover:text-neutral-700 transition-colors"></i>
+                    </div>
+                    <div className="space-y-1 mt-3">
+                      <h3 className="text-lg font-semibold text-neutral-800">Pay Fees</h3>
+                      <p className="text-sm text-neutral-500">UPI payment gateway</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card 
+                  className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+                  onClick={() => {
+                    toast({
+                      title: "Coming Soon",
+                      description: "Library access feature will be available soon",
+                    });
+                  }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-purple-50 flex items-center justify-center">
+                        <i className="fas fa-book text-purple-500 text-xl"></i>
+                      </div>
+                      <i className="fas fa-arrow-right text-neutral-400 group-hover:text-neutral-700 transition-colors"></i>
+                    </div>
+                    <div className="space-y-1 mt-3">
+                      <h3 className="text-lg font-semibold text-neutral-800">Library Access</h3>
+                      <p className="text-sm text-neutral-500">Check-in/out books</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card 
+                  className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+                  onClick={() => {
+                    toast({
+                      title: "Coming Soon",
+                      description: "Opportunities feature will be available soon",
+                    });
+                  }}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start justify-between">
+                      <div className="w-12 h-12 rounded-lg bg-orange-50 flex items-center justify-center">
+                        <i className="fas fa-briefcase text-orange-500 text-xl"></i>
+                      </div>
+                      <i className="fas fa-arrow-right text-neutral-400 group-hover:text-neutral-700 transition-colors"></i>
+                    </div>
+                    <div className="space-y-1 mt-3">
+                      <h3 className="text-lg font-semibold text-neutral-800">Opportunities</h3>
+                      <p className="text-sm text-neutral-500">Jobs & internships</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="mt-8 text-center">
+                <p className="text-sm text-neutral-500">
+                  More services coming soon. Contact support for assistance.
+                </p>
+              </div>
             </div>
           </TabsContent>
 

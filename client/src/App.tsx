@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 import Dashboard from "@/pages/dashboard";
+import { ServicesPage } from "@/pages/services";
 import { AuthProvider, useAuth } from "./lib/auth";
 
 function AuthenticatedApp() {
@@ -29,6 +30,7 @@ function AuthenticatedApp() {
   return (
     <Switch>
       <Route path="/" component={Dashboard} />
+      <Route path="/services" component={ServicesPage} />
       <Route component={NotFound} />
     </Switch>
   );
